@@ -1,48 +1,63 @@
 $(document).ready(function(){
-    $('#carousel-imagens').slick({ /*"Slick" é o nome da biblioteca desse efeito de slides, tem que sempre colocar o nome da biblioteca*/ 
-        autoplay:true,
-        arrows:false
-    })
+    $('#carousel-imagens').slick({
+        autoplay: true,
+        arrows: false
+    });
     
     $('#telefone').mask('(00) 00000-0000', {
         placeholder: '(DDD) 12345-6789'
-    })
+    });
     
     $('#cpf').mask('000.000.000-00', {
         placeholder: '123.456.789-00'
-    })
+    });
     
     $('#cep').mask('00000-000', {
         placeholder: '012345-678'
-    })
+    });
     
+    // Validação do formulário
     $('form').validate({
         rules: {
             nome: {
-                requerido: true
+                required: true
             },
             email: {
-                requerido: true,
+                required: true,
                 email: true
             },
             telefone: {
-                requerido: true
+                required: true
             },
             endereco: {
-                requerido: true
+                required: true
             },
             cep: {
-                requerido: true
+                required: true
             },
             cpf: {
-                requerido: true
+                required: true
+            }
+        },
+        messages: {
+            nome: 'Por favor, insira seu nome',
+            email: {
+                required: 'Por favor, insira seu e-mail',
+                email: 'Por favor, insira um e-mail válido'
             },
+            telefone: 'Por favor, insira seu telefone',
+            endereco: 'Por favor, insira seu endereço completo',
+            cep: 'Por favor, insira seu CEP',
+            cpf: 'Por favor, insira seu CPF'
         },
         submitHandler: function(form) {
-            console.log
+            alert('seus dados foram enviados')
         },
-        invalidHandler: function (form, validator) {
-            alert("Por favor, preencha os campos para prosseguir com a compra!");
+        invalidHandler: function(evento, validador) {
+            let camposIncorretos = validador.numberOfInvalids();
+            if (camposIncorretos) {
+                alert(`Existem ${camposIncorretos} campos Não preenchidos`);
+            }
         }
-    })
-})
+    });
+});
